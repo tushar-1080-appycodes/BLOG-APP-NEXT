@@ -17,7 +17,7 @@ export default function AuthLayout({ children }) {
 
         {pathname === "/Auth/logIn" ? (
           <p>
-            don't have an account? <Link href="/Auth/signUp">Sign Up</Link>
+            don&apos;t have an account? <Link href="/Auth/signUp">Sign Up</Link>
           </p>
         ) : (
           <p>
