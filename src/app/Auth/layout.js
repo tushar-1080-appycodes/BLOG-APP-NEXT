@@ -3,27 +3,28 @@
 import { useRouter, usePathname } from "next/navigation";
 import "./AuthLayout.scss";
 import Link from "next/link";
+import { store } from "@/app/store";
+import { Provider } from "react-redux";
 
 export default function AuthLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
 
   return (
-    <div className="authLayout">
-      {children}
+    <Provider store={store}>
+      <div className="authLayout">
+        {children}
 
-      <hr />
-      {
-        pathname === "/Auth/logIn" ? (
-            <p>
+        {pathname === "/Auth/logIn" ? (
+          <p>
             don't have an account? <Link href="/Auth/signUp">Sign Up</Link>
-            </p>
+          </p>
         ) : (
-            <p>
+          <p>
             already have an account? <Link href="/Auth/logIn">Log In</Link>
-            </p>
-        )
-      }
-    </div>
+          </p>
+        )}
+      </div>
+    </Provider>
   );
 }

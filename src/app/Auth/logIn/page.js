@@ -1,6 +1,10 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { auth } from "@/firebase/config";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleShowPass } from "@/features/auth/authSlice";
 
 export default function LogIn() {
   const {
@@ -9,13 +13,24 @@ export default function LogIn() {
     formState: { errors, isSubmitting },
   } = useForm();
 
+  const dispatch = useDispatch();
+  const showPass = useSelector((state) => state.auth.showPass);
+
   return (
     <div>
       <h1>Log In</h1>
       <form
         onSubmit={handleSubmit(async (data) => {
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          console.log(data);
+          try {
+            const userCredential = await signInWithEmailAndPassword(
+              auth,
+              data.email,
+              data.password
+            );
+            console.log("user credentials are valid");
+          } catch (error) {
+            console.error(error);
+          }
         })}
       >
         {/* Email */}
@@ -28,21 +43,20 @@ export default function LogIn() {
         />
 
         {/* Password */}
-        <input
-          {...register("password", {
-            required: true,
-            minLength: 8,
-          })}
-          type="password"
-          placeholder="Password"
-        />
+        <div className="passWrapper">
+          <input
+            {...register("password", {
+              required: true,
+              minLength: 8,
+            })}
+            type={showPass ? "text" : "password"}
+            placeholder="Password"
+          />
+          <button type="button" onClick={() => dispatch(toggleShowPass())}>Show</button>
+        </div>
 
         {/* LogIn Button */}
-        <button
-          onClick={(e) => {
-            router.push("/Auth/logIn");
-          }}
-        >
+        <button type="submit" disabled={isSubmitting}>
           {/* Log In */}
           {isSubmitting ? "Logging In" : "Log In"}
         </button>

@@ -1,6 +1,11 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { auth, db } from "@/firebase/config";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleShowPass } from "@/features/auth/authSlice";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function SignUp() {
   const {
@@ -12,13 +17,34 @@ export default function SignUp() {
 
   const password = watch("password");
 
+  const dispatch = useDispatch();
+  const showPass = useSelector((state) => state.auth.showPass);
+
   return (
     <div>
       <h1>Sign Up</h1>
       <form
         onSubmit={handleSubmit(async (data) => {
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          console.log(data);
+          try {
+            const userCredential = await createUserWithEmailAndPassword(
+              auth,
+              data.email,
+              data.password
+            );
+            console.log("User created with uid: ", userCredential.user.uid);
+
+            await setDoc(doc(db, "users", userCredential.user.uid), {
+              firstname: data.fName,
+              lastname: data.lName,
+              email: data.email,
+            });
+            console.log(
+              "User created in DB with uid: ",
+              userCredential.user.uid
+            );
+          } catch (error) {
+            console.error(error);
+          }
         })}
       >
         {/* First Name */}
@@ -67,16 +93,21 @@ export default function SignUp() {
         )}
 
         {/* Password */}
-        <input
-          {...register("password", {
-            required: true,
-            minLength: 8,
-            pattern:
-              /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-          })}
-          type="password"
-          placeholder="Password"
-        />
+        <div className="passWrapper">
+          <input
+            {...register("password", {
+              required: true,
+              minLength: 8,
+              pattern:
+                /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+            })}
+            type={showPass ? "text" : "password"}
+            placeholder="Password"
+          />
+          <button type="button" onClick={() => dispatch(toggleShowPass())}>
+            Show
+          </button>
+        </div>
         {errors.password && (
           <div className="text-xs">
             <p>Password must have</p>
@@ -91,24 +122,26 @@ export default function SignUp() {
         )}
 
         {/* Confirm Password */}
-        <input
-          {...register("cPassword", {
-            required: true,
-            validate: (value) => value === password || "Passwords do not match",
-          })}
-          type="password"
-          placeholder="Confirm Password"
-        />
+        <div className="passWrapper">
+          <input
+            {...register("cPassword", {
+              required: true,
+              validate: (value) =>
+                value === password || "Passwords do not match",
+            })}
+            type={showPass ? "text" : "password"}
+            placeholder="Confirm Password"
+          />
+          <button type="button" onClick={() => dispatch(toggleShowPass())}>
+            Show
+          </button>
+        </div>
         {errors.cPassword && (
           <p className="text-red-500 font-black">{errors.cPassword.message}</p>
         )}
 
         {/* SignUp Button */}
-        <button
-          onClick={(e) => {
-            router.push("/Auth/signUp");
-          }}
-        >
+        <button type="submit" disabled={isSubmitting}>
           {/* Sign Up */}
           {isSubmitting ? "Signing Up" : "Sign Up"}
         </button>
