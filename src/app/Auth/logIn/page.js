@@ -5,6 +5,7 @@ import { auth } from "@/firebase/config";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleShowPass } from "@/features/auth/authSlice";
+import { useRouter } from "next/navigation";
 
 export default function LogIn() {
   const {
@@ -15,6 +16,7 @@ export default function LogIn() {
 
   const dispatch = useDispatch();
   const showPass = useSelector((state) => state.auth.showPass);
+  const router = useRouter();
 
   return (
     <div>
@@ -28,8 +30,13 @@ export default function LogIn() {
               data.password
             );
             console.log("user credentials are valid");
+            router.push("/");
           } catch (error) {
-            console.error(error);
+            console.log(error.code);
+            
+            if(error.code === "auth/invalid-credential") {
+              alert("Email or Password is incorrect");
+            }
           }
         })}
       >

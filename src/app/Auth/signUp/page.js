@@ -2,10 +2,11 @@
 
 import { useForm } from "react-hook-form";
 import { auth, db } from "@/firebase/config";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, deleteUser } from "firebase/auth";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleShowPass } from "@/features/auth/authSlice";
 import { doc, setDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
   const {
@@ -20,6 +21,8 @@ export default function SignUp() {
   const dispatch = useDispatch();
   const showPass = useSelector((state) => state.auth.showPass);
 
+  const router = useRouter();
+
   return (
     <div>
       <h1>Sign Up</h1>
@@ -31,19 +34,29 @@ export default function SignUp() {
               data.email,
               data.password
             );
-            console.log("User created with uid: ", userCredential.user.uid);
 
-            await setDoc(doc(db, "users", userCredential.user.uid), {
-              firstname: data.fName,
-              lastname: data.lName,
-              email: data.email,
-            });
-            console.log(
-              "User created in DB with uid: ",
-              userCredential.user.uid
-            );
+            const user = userCredential.user;
+
+            try {
+              await setDoc(doc(db, "users", user.uid), {
+                firstname: data.fName,
+                lastname: data.lName,
+                email: data.email,
+              });
+              alert(
+                "User created successfully with uid: " + userCredential.user.uid
+              );
+              router.push("/Auth/logIn");
+            } catch (error) {
+              console.log(error.code);
+              await deleteUser(user);
+              alert("FireStore Error: User creation failed !");
+            }
           } catch (error) {
-            console.error(error);
+            console.error(error.code);
+            if (error.code === "auth/email-already-in-use") {
+              alert("Email already in use. Try Logging In?");
+            }
           }
         })}
       >
