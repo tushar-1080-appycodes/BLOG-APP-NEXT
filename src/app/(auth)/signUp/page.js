@@ -46,7 +46,7 @@ export default function SignUp() {
               alert(
                 "User created successfully with uid: " + userCredential.user.uid
               );
-              router.push("/Auth/logIn");
+              router.push("/logIn");
             } catch (error) {
               console.log(error.code);
               await deleteUser(user);

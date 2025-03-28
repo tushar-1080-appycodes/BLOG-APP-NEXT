@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleShowPass } from "@/features/auth/authSlice";
 import { useRouter } from "next/navigation";
+import { toggleLoggedIn } from "@/features/app/appSlice";
 
 export default function LogIn() {
   const {
@@ -30,7 +31,8 @@ export default function LogIn() {
               data.password
             );
             console.log("user credentials are valid");
-            router.push("/");
+            dispatch(toggleLoggedIn())
+            router.replace("/");
           } catch (error) {
             console.log(error.code);
             

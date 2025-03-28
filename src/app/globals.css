@@ -25,3 +25,26 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   @apply flex p-4 justify-center items-center;
 }
+
+.blogsWrapper{
+  @apply bg-gray-800 w-full p-4 rounded;
+  h1:first-of-type {
+    @apply text-5xl p-4 font-black;
+  }
+  h1:last-of-type {
+    @apply text-2xl p-4 font-bold;
+  }
+  .blogsContainer{
+    @apply w-full flex gap-4 flex-wrap bg-white p-4 justify-around rounded;
+
+    .blogCard{
+      @apply flex flex-col gap-4 bg-green-400 p-4 rounded text-black border-2;
+      h3{
+        @apply text-2xl font-bold;
+      }
+      p{
+        @apply text-lg;
+      }
+    }
+  }
+}
