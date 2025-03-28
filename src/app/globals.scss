@@ -26,30 +26,38 @@ body {
   @apply flex p-4 justify-center items-center;
 }
 
-.blogsWrapper{
+.blogsWrapper {
   @apply bg-gray-800 w-full p-4 rounded;
-  span{
-    @apply flex justify-between p-4 w-full;
-    button{
-      @apply bg-green-600 text-white font-black py-0 px-2 rounded;
-    } 
+  h1 {
+    @apply text-7xl p-4 font-black;
   }
-  h1:first-of-type {
-    @apply text-5xl p-4 font-black;
-  }
-  h1:last-of-type {
-    @apply text-2xl p-4 font-bold;
-  }
-  .blogsContainer{
-    @apply w-full flex gap-4 flex-wrap bg-white p-4 justify-around rounded;
 
-    .blogCard{
-      @apply flex flex-col gap-4 bg-green-400 p-4 rounded text-black border-2;
-      h3{
+  span {
+    @apply flex justify-between p-4 w-full;
+    h1 {
+      @apply text-2xl p-4 font-bold;
+    }
+    button {
+      @apply bg-green-600 text-white font-black py-0 px-2 rounded;
+    }
+  }
+
+  .blogsContainer {
+    @apply w-full flex gap-2 flex-wrap bg-white p-4 justify-evenly rounded;
+
+    .blogCard {
+      @apply relative w-[32%] flex flex-col gap-4 bg-green-400 p-4 rounded text-black border-2;
+      img {
+        @apply rounded border-2 border-white p-8;
+      }
+      h3 {
         @apply text-2xl font-bold;
       }
-      p{
+      p {
         @apply text-lg;
+      }
+      button {
+        @apply bg-red-500 flex absolute bottom-3 right-3 text-white font-black p-2 rounded;
       }
     }
   }

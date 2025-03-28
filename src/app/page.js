@@ -5,7 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Image from "next/image";
+import Blogs from "./blog/page";
 
 export default function Home() {
   const router = useRouter();
@@ -32,15 +32,7 @@ export default function Home() {
         <h1>{mail}</h1>
         <button type="button">Add Blog</button>
       </span>
-      <div className="blogsContainer">
-        {[...Array(10)].map((_, index) => (
-          <div key={index} className="blogCard">
-            <Image src="/next.svg" width={500} height={500} alt="zzz"></Image>
-            <h3>Blog Title</h3>
-            <p>Blog Description</p>
-          </div>
-        ))}
-      </div>
+      <Blogs />
     </div>
   );
 }
