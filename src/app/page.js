@@ -28,7 +28,10 @@ export default function Home() {
   return (
     <div className="blogsWrapper">
       <h1>Blogs</h1>
-      <h1>{mail}</h1>
+      <span>
+        <h1>{mail}</h1>
+        <button type="button">Add Blog</button>
+      </span>
       <div className="blogsContainer">
         {[...Array(10)].map((_, index) => (
           <div key={index} className="blogCard">

@@ -28,6 +28,12 @@ body {
 
 .blogsWrapper{
   @apply bg-gray-800 w-full p-4 rounded;
+  span{
+    @apply flex justify-between p-4 w-full;
+    button{
+      @apply bg-green-600 text-white font-black py-0 px-2 rounded;
+    } 
+  }
   h1:first-of-type {
     @apply text-5xl p-4 font-black;
   }
