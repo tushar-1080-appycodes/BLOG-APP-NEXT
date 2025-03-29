@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { getDocs, onSnapshot, collection } from "firebase/firestore";
+import { getDocs, collection } from "firebase/firestore";
 import { db } from "@/firebase/config";
+import { increase } from "@/features/blog/blogSlice";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export default function Blogs() {
   const blog = {
@@ -12,17 +14,24 @@ export default function Blogs() {
     title: "Blog Title",
     desc: "Blog Description",
   };
-  const router = useRouter();
 
+  const router = useRouter();
+  const blogCount = useSelector((state) => state.blog.addedBlog);
   const [blogs, setBlogs] = useState([]);
 
-  useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "messages"), (snapshot) => {
-      setBlogs(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-    });
+  const fetchBlogs = async () => {
+    const blogsCollection = collection(db, "blogs");
+    const blogsSnapshot = await getDocs(blogsCollection);
+    const blogsList = blogsSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    setBlogs(blogsList);
+  };
 
-    return () => unsubscribe();
-  }, []);
+  useEffect(() => {
+    fetchBlogs();
+  }, [blogCount]);
 
   useEffect(() => {
     console.log(blogs);

@@ -1,8 +1,10 @@
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/firebase/config";
+import { increase } from "@/features/blog/blogSlice";
 
 import "./BlogPopUp.scss";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 export default function BlogPopUp({ mail, showPopUp, setShowPopUp }) {
   const {
@@ -10,6 +12,8 @@ export default function BlogPopUp({ mail, showPopUp, setShowPopUp }) {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm();
+
+  const dispatch = useDispatch();
 
   if (!showPopUp) return null;
   return (
@@ -25,6 +29,7 @@ export default function BlogPopUp({ mail, showPopUp, setShowPopUp }) {
               imgURL: data.image,
               publisher: mail,
             });
+            dispatch(increase());
             alert("Blog uploaded successfully");
           } catch (error) {
             console.log(error.code);
