@@ -22,7 +22,7 @@ export default function Blogs() {
     });
 
     return () => unsubscribe();
-  }, [blogs]);
+  }, []);
 
   useEffect(() => {
     console.log(blogs);
