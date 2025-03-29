@@ -35,7 +35,12 @@ export default function Blogs() {
   return (
     <div className="blogsContainer">
       {blogs.map((blog, index) => (
-        <BlogCard key={index} title={blog.title} desc={blog.desc} imgURL={blog.imgURL} />
+        <BlogCard
+          key={index}
+          title={blog.title}
+          desc={blog.desc}
+          imgURL={blog.imgURL}
+        />
       ))}
     </div>
   );

@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 
 export default function BlogPage({ params }) {
   const search = useSearchParams();
-  const { image, title, desc } = Object.fromEntries(search.entries());
+  const { title, desc, image } = Object.fromEntries(search.entries());
   console.log(params);
 
   return (

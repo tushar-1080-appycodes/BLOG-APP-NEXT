@@ -6,9 +6,9 @@ export default function BlogCard({title,desc,imgURL="/next.svg",index}) {
 
   return (
     <div key={index} className="blogCard">
-      <Image src="/next.svg" width={500} height={500} alt="zzz"></Image>
-      <h3>Blog Title</h3>
-      <p>Blog Description</p>
+      <Image src={imgURL} width={500} height={500} alt="zzz"></Image>
+      <h3>{title}</h3>
+      <p>{desc}</p>
       <button
         onClick={() =>
           router.push(
