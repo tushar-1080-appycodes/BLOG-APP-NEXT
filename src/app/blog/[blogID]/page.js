@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import './BlogPage.scss'
+import "./BlogPage.scss";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
 export default function BlogPage({ params }) {
-  const search=useSearchParams();
+  const search = useSearchParams();
   const { image, title, desc } = Object.fromEntries(search.entries());
   console.log(params);
 

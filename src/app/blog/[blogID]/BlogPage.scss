@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+.blogPage {
+  @apply w-[80%] h-screen flex flex-col items-center justify-start gap-4 bg-green-400 p-8 rounded-xl text-black;
+  img {
+    @apply w-full rounded-xl border-2 border-white p-8 bg-white;
+  }
+  h3 {
+    @apply text-2xl font-bold self-start;
+  }
+  p {
+    @apply text-lg self-start;
+  }
+}

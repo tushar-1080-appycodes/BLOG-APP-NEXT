@@ -5,13 +5,15 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Blogs from "./blog/page";
+import Blogs from "./blog/Blog";
+import BlogPopUp from "./blog/BlogPopUp";
 
 export default function Home() {
   const router = useRouter();
   const isLoggedIn = useSelector((state) => state.app.isLoggedIn);
 
   const [mail, setMail] = useState("");
+  const [showPopUp, setShowPopUp] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -30,8 +32,13 @@ export default function Home() {
       <h1>Blogs</h1>
       <span>
         <h1>{mail}</h1>
-        <button type="button">Add Blog</button>
+        <button onClick={() => {
+          setShowPopUp(!showPopUp);
+        }} type="button">
+          Add Blog
+        </button>
       </span>
+      <BlogPopUp mail={mail} showPopUp={showPopUp} setShowPopUp={setShowPopUp} />
       <Blogs />
     </div>
   );

@@ -43,7 +43,7 @@ body {
   }
 
   .blogsContainer {
-    @apply w-full flex gap-2 flex-wrap bg-white p-4 justify-evenly rounded;
+    @apply  w-full flex gap-2 flex-wrap bg-white p-4 justify-evenly rounded;
 
     .blogCard {
       @apply relative w-[32%] flex flex-col gap-4 bg-green-400 p-4 rounded text-black border-2;
