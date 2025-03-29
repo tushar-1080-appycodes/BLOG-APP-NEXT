@@ -50,7 +50,6 @@ export default function BlogPopUp({ mail, showPopUp, setShowPopUp }) {
         <textarea
           {...register("desc", {
             required: true,
-            pattern: /^[a-zA-Z]{2,50}$/,
           })}
           placeholder="Description"
         />

@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, onSnapshot, collection } from "firebase/firestore";
 import { db } from "@/firebase/config";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function Blogs() {
   const blog = {
@@ -15,19 +15,18 @@ export default function Blogs() {
   const router = useRouter();
 
   const [blogs, setBlogs] = useState([]);
+
   useEffect(() => {
-    const fetchBlogs = async () => {
-      const blogsCollection = collection(db, "blogs");
-      const blogsSnapshot = await getDocs(blogsCollection);
-      const blogsList = blogsSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setBlogs(blogsList);
-    };
-    fetchBlogs();
-  }, []);
-  console.log(blogs);
+    const unsubscribe = onSnapshot(collection(db, "messages"), (snapshot) => {
+      setBlogs(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    });
+
+    return () => unsubscribe();
+  }, [blogs]);
+
+  useEffect(() => {
+    console.log(blogs);
+  }, [blogs]);
 
   return (
     <div className="blogsContainer">
