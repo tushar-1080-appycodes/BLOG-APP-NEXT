@@ -5,7 +5,7 @@ import "./BlogPopUp.scss";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 
-export default function BlogPopUp() {
+export default function BlogEditPopUp() {
   const {
     register,
     handleSubmit,

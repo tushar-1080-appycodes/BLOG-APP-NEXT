@@ -1,18 +1,23 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-export default function BlogCard({title,desc,imgURL,index}) {
+export default function BlogCard({ index, title, desc, imgURL, publisher }) {
   const router = useRouter();
 
   return (
-    <div key={index} className="blogCard">
-      <Image src={imgURL?imgURL:"/next.svg"} width={500} height={500} alt="zzz"></Image>
+    <div className="blogCard">
+      <Image
+        src={imgURL ? imgURL : "/next.svg"}
+        width={500}
+        height={500}
+        alt="zzz"
+      ></Image>
       <h3>{title}</h3>
-      <p>{desc}</p>
+      <span>{publisher}</span>
       <button
         onClick={() =>
           router.push(
-            `/blog/${index}?image=${imgURL}&title=${title}&desc=${desc}`
+            `/blog/${index}?image=${imgURL}&title=${title}&desc=${desc}&publisher=${publisher}`
           )
         }
       >

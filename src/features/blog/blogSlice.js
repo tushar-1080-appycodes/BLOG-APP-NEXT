@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toggleShowPass } from "../auth/authSlice";
 
 const initialState = {
   addedBlog: 0,
+  showPopUp: false,
 };
 
 export const blogSlice = createSlice({
@@ -11,9 +13,12 @@ export const blogSlice = createSlice({
     increase: (state) => {
       state.addedBlog += 1;
     },
+    toggleShowPopUp: (state) => {
+      state.showPopUp = !state.showPopUp;
+    },
   },
 });
 
-export const { increase } = blogSlice.actions;
+export const { increase,toggleShowPopUp } = blogSlice.actions;
 
 export default blogSlice.reducer;

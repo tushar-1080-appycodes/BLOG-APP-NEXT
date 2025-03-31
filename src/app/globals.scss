@@ -43,18 +43,18 @@ body {
   }
 
   .blogsContainer {
-    @apply  w-full flex gap-2 flex-wrap bg-white p-4 justify-evenly rounded;
+    @apply  w-full grid grid-cols-3 gap-y-0 gap-x-4 bg-white p-4 rounded;
 
     .blogCard {
-      @apply relative w-[32%] flex flex-col gap-4 bg-green-400 p-4 rounded text-black border-2;
+      @apply relative col-span-1 h-8/12 flex flex-col gap-4 justify-around bg-green-400 p-4 rounded text-black border-2;
       img {
-        @apply rounded border-2 border-white p-8;
+        @apply rounded border-2 bg-white p-8 w-full h-1/2;
       }
       h3 {
-        @apply text-2xl font-bold;
+        @apply text-5xl font-bold;
       }
-      p {
-        @apply text-lg;
+      span {
+        @apply text-lg bg-blue-500 rounded text-white p-1 w-fit;
       }
       button {
         @apply bg-red-500 flex absolute bottom-3 right-3 text-white font-black p-2 rounded;

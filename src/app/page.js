@@ -4,21 +4,27 @@ import { auth } from "@/firebase/config";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import Blogs from "./blog/Blog";
+import { useSelector, useDispatch } from "react-redux";
+import { setMail } from "@/features/app/appSlice";
+import Blogs from "./blog/Blogs";
 import BlogPopUp from "./blog/BlogPopUp";
+import {toggleShowPopUp} from "@/features/blog/blogSlice";
 
 export default function Home() {
   const router = useRouter();
-  const isLoggedIn = useSelector((state) => state.app.isLoggedIn);
+  const dispatch = useDispatch();
 
-  const [mail, setMail] = useState("");
-  const [showPopUp, setShowPopUp] = useState(false);
+  const isLoggedIn = useSelector((state) => state.app.isLoggedIn);
+  const mail = useSelector((state) => state.app.mail);
+  const showPopUp = useSelector((state) => state.blog.showPopUp);
+
+  // const [mail, setMail] = useState("");
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setMail(user.email);
+        // setMail(user.email);
+        dispatch(setMail(user.email));
       }
     });
   }, []);
@@ -32,13 +38,16 @@ export default function Home() {
       <h1>Blogs</h1>
       <span>
         <h1>{mail}</h1>
-        <button onClick={() => {
-          setShowPopUp(!showPopUp);
-        }} type="button">
+        <button
+          onClick={() => {
+            dispatch(toggleShowPopUp());
+          }}
+          type="button"
+        >
           Add Blog
         </button>
       </span>
-      <BlogPopUp mail={mail} showPopUp={showPopUp} setShowPopUp={setShowPopUp} />
+      <BlogPopUp />
       <Blogs />
     </div>
   );
