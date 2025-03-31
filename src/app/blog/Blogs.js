@@ -62,7 +62,7 @@ export default function Blogs() {
       {blogs.map((blog, index) => (
         <BlogCard
           key={index}
-          index={index}
+          blogID={blog.id}
           title={blog.title}
           desc={blog.desc}
           imgURL={blog.imgURL}

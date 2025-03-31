@@ -3,13 +3,13 @@
 import "./BlogPage.scss";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import BlogEditPopUp from "../BlogEditPopUp";
 import { toggleShowPopUp } from "@/features/blog/blogSlice";
 
 export default function BlogPage({ params }) {
   const search = useSearchParams();
-  const { title, desc, image, publisher } = Object.fromEntries(
+  const { blogID, title, desc, image, publisher } = Object.fromEntries(
     search.entries()
   );
 
@@ -52,7 +52,7 @@ export default function BlogPage({ params }) {
           </svg>
         </button>
       </div>
-      <BlogEditPopUp />
+      <BlogEditPopUp defaultValues={{ blogID, title, desc, image, publisher }} />
       {mail === publisher && (
         <div className="editDelWrapper">
           <button>

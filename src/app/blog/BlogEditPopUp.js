@@ -5,34 +5,26 @@ import "./BlogPopUp.scss";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 
-export default function BlogEditPopUp() {
+export default function BlogEditPopUp(defaultValues) {
+  const { blogID, title, desc, image, publisher } = defaultValues;
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm();
+  } = useForm({ defaultValues: { title, desc, image } });
 
   const mail = useSelector((state) => state.app.mail);
   const showPopUp = useSelector((state) => state.blog.showPopUp);
   const dispatch = useDispatch();
 
-  async function submitHandler() {
+  async function submitHandler(data) {
     try {
-      console.log(data);
+      const blogRef = doc(db, "blogs", blogId); // Reference to blog document
+      await updateDoc(blogRef, data); // Update document
 
-      await addDoc(collection(db, "blogs"), {
-        title: data.title,
-        desc: data.desc,
-        imgURL: data.image,
-        publisher: mail,
-      });
-
-      dispatch(increase());
-
-      alert("Blog uploaded successfully");
+      console.log("✅ Blog updated successfully!");
     } catch (error) {
-      console.log(error.code);
-      alert("Error uploading blog");
+      console.error("❌ Error updating blog:", error);
     }
   }
 
@@ -41,8 +33,10 @@ export default function BlogEditPopUp() {
   }
   return (
     <div className="blogPopUp">
-      <form onSubmit={handleSubmit(submitHandler)}>
+      <form onSubmit={(data) => handleSubmit(submitHandler(data))}>
+        <label htmlFor="title">Title</label>
         <input
+          id="title"
           {...register("title", {
             required: true,
             pattern: /^[a-zA-Z]{2,50}$/,
@@ -50,14 +44,20 @@ export default function BlogEditPopUp() {
           type="text"
           placeholder="Title"
         />
+
+        <label htmlFor="image">Image</label>
         <input
+          id="image"
           {...register("image", {
             required: true,
           })}
           type="text"
           placeholder="Image URL"
         />
+
+        <label htmlFor="desc">Description</label>
         <textarea
+          id="desc"
           {...register("desc", {
             required: true,
           })}
