@@ -11,7 +11,9 @@ export default function BlogEditPopUp(defaultValues) {
     register,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm({ defaultValues: { title, desc, image } });
+  } = useForm({
+    defaultValues: { title: title, desc: desc, image: image },
+  });
 
   const mail = useSelector((state) => state.app.mail);
   const showPopUp = useSelector((state) => state.blog.showPopUp);
