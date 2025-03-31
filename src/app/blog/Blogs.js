@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+
 import { getDocs, collection, writeBatch, doc } from "firebase/firestore";
 import { db } from "@/firebase/config";
 import { useState, useEffect } from "react";
@@ -8,36 +8,35 @@ import { useSelector } from "react-redux";
 import BlogCard from "./BlogCard";
 
 export default function Blogs() {
-  const router = useRouter();
 
   const blogCount = useSelector((state) => state.blog.addedBlog);
 
   const [blogs, setBlogs] = useState([]);
 
+  // useEffect(() => {
+  //   fetch("/MOCK_DATA.json") // Ensure the JSON file is in the public folder
+  //     .then((response) => response.json())
+  //     .then((json) => setBlogs(json))
+  //     .catch((error) => console.error("Error fetching data:", error));
+  // }, []);
+
+  const fetchBlogs = async () => {
+    const blogsCollection = collection(db, "blogs");
+    const blogsSnapshot = await getDocs(blogsCollection);
+    const blogsList = blogsSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    setBlogs(blogsList);
+  };
+
   useEffect(() => {
-    fetch("/MOCK_DATA.json") // Ensure the JSON file is in the public folder
-      .then((response) => response.json())
-      .then((json) => setBlogs(json))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+    fetchBlogs();
+  }, [blogCount]);
 
-  // const fetchBlogs = async () => {
-  //   const blogsCollection = collection(db, "blogs");
-  //   const blogsSnapshot = await getDocs(blogsCollection);
-  //   const blogsList = blogsSnapshot.docs.map((doc) => ({
-  //     id: doc.id,
-  //     ...doc.data(),
-  //   }));
-  //   setBlogs(blogsList);
-  // };
-
-  // useEffect(() => {
-  //   fetchBlogs();
-  // }, [blogCount]);
-
-  // useEffect(() => {
-  //   console.log(blogs);
-  // }, [blogs]);
+  useEffect(() => {
+    console.log(blogs);
+  }, [blogs]);
 
   return (
     <div className="blogsContainer">
