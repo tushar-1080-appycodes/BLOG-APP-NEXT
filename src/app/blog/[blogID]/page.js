@@ -11,7 +11,7 @@ export default function BlogPage({ params }) {
 
   return (
     <div className="blogPage">
-      <Image src={image} width={100} height={100} alt="zzz"></Image>
+      <Image src={image?image:"/next.svg"} width={100} height={100} alt="zzz"></Image>
       <h3>{title}</h3>
       <p>{desc}</p>
     </div>
