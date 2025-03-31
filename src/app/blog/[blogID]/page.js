@@ -6,6 +6,8 @@ import { useSearchParams } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import BlogEditPopUp from "../BlogEditPopUp";
 import { toggleShowPopUp } from "@/features/blog/blogSlice";
+import { deleteDoc } from "firebase/firestore";
+import { db } from "@/firebase/config";
 
 export default function BlogPage({ params }) {
   const search = useSearchParams();
@@ -36,7 +38,7 @@ export default function BlogPage({ params }) {
             />
           </svg>
         </button>
-        <button>
+        <button onClick={() => deleteDoc(doc(db, "blogs", blogID))}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

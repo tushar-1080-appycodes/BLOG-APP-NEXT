@@ -1,12 +1,13 @@
-import { addDoc, collection } from "firebase/firestore";
+import { updateDoc, doc } from "firebase/firestore";
 import { db } from "@/firebase/config";
-import { increase, toggleShowPopUp } from "@/features/blog/blogSlice";
+import { toggleShowPopUp } from "@/features/blog/blogSlice";
 import "./BlogPopUp.scss";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function BlogEditPopUp(defaultValues) {
   const { blogID, title, desc, image, publisher } = defaultValues;
+
   const {
     register,
     handleSubmit,

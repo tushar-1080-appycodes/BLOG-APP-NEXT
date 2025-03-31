@@ -34,9 +34,9 @@ export default function Blogs() {
     fetchBlogs();
   }, [blogCount]);
 
-  useEffect(() => {
-    console.log(blogs);
-  }, [blogs]);
+  // useEffect(() => {
+  //   console.log(blogs);
+  // }, [blogs]);
 
   return (
     <div className="blogsContainer">
