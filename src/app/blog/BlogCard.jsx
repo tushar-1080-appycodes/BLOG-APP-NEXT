@@ -1,12 +1,12 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-export default function BlogCard({title,desc,imgURL="/next.svg",index}) {
+export default function BlogCard({title,desc,imgURL,index}) {
   const router = useRouter();
 
   return (
     <div key={index} className="blogCard">
-      <Image src={imgURL} width={500} height={500} alt="zzz"></Image>
+      <Image src={imgURL?imgURL:"/next.svg"} width={500} height={500} alt="zzz"></Image>
       <h3>{title}</h3>
       <p>{desc}</p>
       <button
