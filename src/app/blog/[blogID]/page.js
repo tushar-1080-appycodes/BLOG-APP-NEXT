@@ -12,6 +12,7 @@ export default function BlogPage({ params }) {
   const { blogID, title, desc, image, publisher } = Object.fromEntries(
     search.entries()
   );
+  console.log(blogID);
 
   const mail = useSelector((state) => state.app.mail);
   const dispatch = useDispatch();
@@ -52,7 +53,9 @@ export default function BlogPage({ params }) {
           </svg>
         </button>
       </div>
-      <BlogEditPopUp defaultValues={{ blogID, title, desc, image, publisher }} />
+      <BlogEditPopUp
+        defaultValues={{ blogID, title, desc, image, publisher }}
+      />
       {mail === publisher && (
         <div className="editDelWrapper">
           <button>
