@@ -1,9 +1,16 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useSelector, useDispatch } from "react-redux";
 
-export default function BlogCard({ blogID, title, desc, image, publisher }) {
+export default function BlogCard({ blogID }) {
   const router = useRouter();
   // console.log("Images: ", image);
+
+  const blogs = useSelector(state => state.blog.blogs)
+  const { title, desc, image, publisher } = blogs.find(blog => blog.id === blogID)
+  // , title, desc, image, publisher
+
+
   return (
     <div className="blogCard">
       <Image

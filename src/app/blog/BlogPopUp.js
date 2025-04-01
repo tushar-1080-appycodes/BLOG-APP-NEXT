@@ -10,7 +10,13 @@ export default function BlogPopUp() {
     register,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      image: "/next.svg",
+      title: "",
+      desc: "",
+    },
+  });
 
   const mail = useSelector((state) => state.app.mail);
   const showPopUp = useSelector((state) => state.blog.showPopUp);
@@ -23,10 +29,10 @@ export default function BlogPopUp() {
       const response = await addDoc(collection(db, "blogs"), {
         title: data.title,
         desc: data.desc,
-        imgURL: data.image,
+        image: data.image,
         publisher: mail,
       });
-      console.log("Response",response);
+      console.log("Response", response);
 
       dispatch(increase());
 

@@ -2,16 +2,19 @@
 
 import { getDocs, collection, writeBatch, doc } from "firebase/firestore";
 import { db } from "@/firebase/config";
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import {  useEffect } from "react";
+import { useSelector,useDispatch } from "react-redux";
 import BlogCard from "./BlogCard";
+import { setBlogs } from "@/features/blog/blogSlice";
 
 
 export default function Blogs() {
 
   const blogCount = useSelector((state) => state.blog.addedBlog);
 
-  const [blogs, setBlogs] = useState([]);
+  // const [blogs, setBlogs] = useState([]);
+  const blogs=useSelector(state=>state.blog.blogs)
+  const dispatch=useDispatch()
 
   // useEffect(() => {
   //   fetch("/MOCK_DATA.json") // Ensure the JSON file is in the public folder
@@ -27,12 +30,14 @@ export default function Blogs() {
       id: doc.id,
       ...doc.data(),
     }));
-    setBlogs(blogsList);
+    // setBlogs(blogsList);
+    dispatch(setBlogs(blogsList))
   };
 
   useEffect(() => {
     fetchBlogs();
     console.log("Blogs fetched from Firestore");
+    console.log(blogs);
     
   }, [blogCount]);
 
@@ -66,11 +71,12 @@ export default function Blogs() {
         
         <BlogCard
           key={index}
+          // {...blog}
           blogID={blog.id}
-          title={blog.title}
-          desc={blog.desc}
-          image={blog.image}
-          publisher={blog.publisher}
+          // title={blog.title}
+          // desc={blog.desc}
+          // image={blog.image}
+          // publisher={blog.publisher}
         />
       ))}
     </div>
