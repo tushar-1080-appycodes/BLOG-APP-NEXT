@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleShowPass } from "@/features/auth/authSlice";
 import { useRouter } from "next/navigation";
 import { toggleLoggedIn } from "@/features/app/appSlice";
+import ShowPassButton from "@/components/AuthForm/ShowPassButton";
 
 export default function LogIn() {
   const {
@@ -61,7 +62,7 @@ export default function LogIn() {
             type={showPass ? "text" : "password"}
             placeholder="Password"
           />
-          <button type="button" onClick={() => dispatch(toggleShowPass())}>Show</button>
+          <ShowPassButton />
         </div>
 
         {/* LogIn Button */}

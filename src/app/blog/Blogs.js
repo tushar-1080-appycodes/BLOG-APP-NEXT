@@ -1,11 +1,11 @@
 "use client";
 
-
 import { getDocs, collection, writeBatch, doc } from "firebase/firestore";
 import { db } from "@/firebase/config";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import BlogCard from "./BlogCard";
+
 
 export default function Blogs() {
 
@@ -32,6 +32,8 @@ export default function Blogs() {
 
   useEffect(() => {
     fetchBlogs();
+    console.log("Blogs fetched from Firestore");
+    
   }, [blogCount]);
 
   // useEffect(() => {
@@ -60,12 +62,14 @@ export default function Blogs() {
         Upload Mock Data
       </button>
       {blogs.map((blog, index) => (
+        // console.log("Blog ObjID: ",blog.id),
+        
         <BlogCard
           key={index}
           blogID={blog.id}
           title={blog.title}
           desc={blog.desc}
-          imgURL={blog.imgURL}
+          image={blog.image}
           publisher={blog.publisher}
         />
       ))}

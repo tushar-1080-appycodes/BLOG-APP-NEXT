@@ -2,23 +2,39 @@
 
 import "./BlogPage.scss";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useParams,useRouter } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import BlogEditPopUp from "../BlogEditPopUp";
 import { toggleShowPopUp } from "@/features/blog/blogSlice";
-import { deleteDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase/config";
+import { useEffect, useState } from "react";
 
-export default function BlogPage({ params }) {
-  const search = useSearchParams();
-  const { blogID, title, desc, image, publisher } = Object.fromEntries(
-    search.entries()
-  );
-  console.log(blogID);
+export default function BlogPage() {
+  const { blogID } = useParams();
+  console.log("Blog ID: ", blogID);
+
+  const router = useRouter();
+
+  const [data, setData] = useState(null);
 
   const mail = useSelector((state) => state.app.mail);
   const dispatch = useDispatch();
 
+  async function fetchBlog() {
+    const docRef = doc(db, "blogs", blogID);
+    const blogDoc = await getDoc(docRef);
+    setData(blogDoc.data());
+  }
+
+  useEffect(() => {
+    fetchBlog();
+  }, []);
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+  
   return (
     <div className="blogPage">
       <div className="editDelWrapper">
@@ -38,7 +54,11 @@ export default function BlogPage({ params }) {
             />
           </svg>
         </button>
-        <button onClick={() => deleteDoc(doc(db, "blogs", blogID))}>
+        <button onClick={() => {
+          deleteDoc(doc(db, "blogs", blogID))
+          alert("Deleted");
+          router.replace("/");
+        }}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -56,9 +76,9 @@ export default function BlogPage({ params }) {
         </button>
       </div>
       <BlogEditPopUp
-        defaultValues={{ blogID, title, desc, image, publisher }}
+        blogID={blogID} {...data}
       />
-      {mail === publisher && (
+      {/* {mail === data.publisher && (
         <div className="editDelWrapper">
           <button>
             <svg
@@ -93,18 +113,19 @@ export default function BlogPage({ params }) {
             </svg>
           </button>
         </div>
-      )}
+      )} */}
       <Image
-        src={image ? image : "/next.svg"}
+        // src={data.image ? data.image : "/next.svg"}
+        src="/next.svg"
         width={100}
         height={100}
         alt="zzz"
       ></Image>
       <span className="titlePublisherWrapper">
-        <h3>{title}</h3>
-        {publisher && <span>{publisher}</span>}
+        <h3>{data.title}</h3>
+        {data.publisher && <span>{data.publisher}</span>}
       </span>
-      <p>{desc}</p>
+      <p>{data.desc}</p>
       <div className="prevNextWrapper">
         <button onClick={() => window.history.back()}>
           <span>

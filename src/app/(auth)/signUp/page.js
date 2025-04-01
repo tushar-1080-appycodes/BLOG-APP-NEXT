@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleShowPass } from "@/features/auth/authSlice";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
+import ShowPassButton from "@/components/AuthForm/ShowPassButton";
 
 export default function SignUp() {
   const {
@@ -117,9 +118,7 @@ export default function SignUp() {
             type={showPass ? "text" : "password"}
             placeholder="Password"
           />
-          <button type="button" onClick={() => dispatch(toggleShowPass())}>
-            Show
-          </button>
+          <ShowPassButton />
         </div>
         {errors.password && (
           <div className="text-xs">
@@ -145,9 +144,7 @@ export default function SignUp() {
             type={showPass ? "text" : "password"}
             placeholder="Confirm Password"
           />
-          <button type="button" onClick={() => dispatch(toggleShowPass())}>
-            Show
-          </button>
+          <ShowPassButton />
         </div>
         {errors.cPassword && (
           <p className="text-red-500 font-black">{errors.cPassword.message}</p>

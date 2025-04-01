@@ -19,6 +19,23 @@
   }
 }
 
+@layer utilities {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    @apply bg-transparent text-white border-gray-700;
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -43,10 +60,10 @@ body {
   }
 
   .blogsContainer {
-    @apply  w-full grid grid-cols-3 gap-y-0 gap-x-4 bg-white p-4 rounded;
+    @apply w-full grid grid-cols-3 gap-3 bg-white p-4 rounded;
 
     .blogCard {
-      @apply relative col-span-1 h-8/12 flex flex-col gap-4 justify-around bg-green-400 p-4 rounded text-black border-2;
+      @apply relative col-span-1 flex flex-col gap-4 justify-around bg-green-400 p-4 rounded text-black border-2;
       img {
         @apply rounded border-2 bg-white p-8 w-full h-1/2;
       }

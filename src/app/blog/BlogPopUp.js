@@ -16,16 +16,17 @@ export default function BlogPopUp() {
   const showPopUp = useSelector((state) => state.blog.showPopUp);
   const dispatch = useDispatch();
 
-  async function submitHandler() {
+  async function submitHandler(data) {
     try {
       console.log(data);
 
-      await addDoc(collection(db, "blogs"), {
+      const response = await addDoc(collection(db, "blogs"), {
         title: data.title,
         desc: data.desc,
         imgURL: data.image,
         publisher: mail,
       });
+      console.log("Response",response);
 
       dispatch(increase());
 

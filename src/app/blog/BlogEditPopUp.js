@@ -13,30 +13,34 @@ export default function BlogEditPopUp(defaultValues) {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm({
-    defaultValues: { title: title, desc: desc, image: image },
+    defaultValues: {
+      image: image,
+      title: title,
+      desc: desc,
+    },
   });
 
-  const mail = useSelector((state) => state.app.mail);
   const showPopUp = useSelector((state) => state.blog.showPopUp);
   const dispatch = useDispatch();
-
-  async function submitHandler(data) {
-    try {
-      const blogRef = doc(db, "blogs", blogId); // Reference to blog document
-      await updateDoc(blogRef, data); // Update document
-
-      console.log("✅ Blog updated successfully!");
-    } catch (error) {
-      console.error("❌ Error updating blog:", error);
-    }
-  }
 
   if (!showPopUp) {
     return null;
   }
+
+  async function submitHandler(data) {
+    try {
+      const blogRef = doc(db, "blogs", blogID); // Reference to blog document
+      await updateDoc(blogRef, data); // Update document
+      alert("✅ Blog updated successfully!");
+      window.location.reload();
+    } catch (error) {
+      alert("❌ Error updating blog:", error);
+    }
+  }
+
   return (
     <div className="blogPopUp">
-      <form onSubmit={(data) => handleSubmit(submitHandler(data))}>
+      <form onSubmit={handleSubmit(submitHandler)}>
         <label htmlFor="title">Title</label>
         <input
           id="title"
@@ -66,6 +70,7 @@ export default function BlogEditPopUp(defaultValues) {
           })}
           placeholder="Description"
         />
+
         <div className="btnWrapper">
           <button
             type="button"
@@ -77,7 +82,7 @@ export default function BlogEditPopUp(defaultValues) {
             Cancel
           </button>
           <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Adding Blog" : "Add Blog"}
+            {isSubmitting ? "Updating Blog" : "Update Blog"}
           </button>
         </div>
       </form>

@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setMail } from "@/features/app/appSlice";
 import Blogs from "./blog/Blogs";
 import BlogPopUp from "./blog/BlogPopUp";
-import {toggleShowPopUp} from "@/features/blog/blogSlice";
+import { toggleShowPopUp } from "@/features/blog/blogSlice";
 
 export default function Home() {
   const router = useRouter();
@@ -16,7 +16,7 @@ export default function Home() {
 
   const isLoggedIn = useSelector((state) => state.app.isLoggedIn);
   const mail = useSelector((state) => state.app.mail);
-  const showPopUp = useSelector((state) => state.blog.showPopUp);
+  // const showPopUp = useSelector((state) => state.blog.showPopUp);
 
   // const [mail, setMail] = useState("");
 
@@ -26,12 +26,17 @@ export default function Home() {
         // setMail(user.email);
         dispatch(setMail(user.email));
       }
+      // else {
+      //   router.replace("/logIn");
+      // }
+
+      return () => unsubscribe();
+
+      if (!isLoggedIn) {
+        router.replace("/logIn");
+      }
     });
   }, []);
-
-  useEffect(() => {
-    !isLoggedIn ? router.replace("/logIn") : null;
-  }, [isLoggedIn]);
 
   return (
     <div className="blogsWrapper">
