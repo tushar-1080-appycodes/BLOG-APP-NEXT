@@ -4,6 +4,9 @@ import { increase, toggleShowPopUp } from "@/features/blog/blogSlice";
 import "./BlogPopUp.scss";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function BlogPopUp() {
   const {
@@ -49,7 +52,9 @@ export default function BlogPopUp() {
   return (
     <div className="blogPopUp">
       <form onSubmit={handleSubmit(submitHandler)}>
-        <input
+        <label htmlFor="title">Title</label>
+        <Input
+          id="title"
           {...register("title", {
             required: true,
             pattern: /^[a-zA-Z]{2,50}$/,
@@ -57,21 +62,25 @@ export default function BlogPopUp() {
           type="text"
           placeholder="Title"
         />
-        <input
+        <label htmlFor="image">Image</label>
+        <Input
+          id="Image"
           {...register("image", {
             required: true,
           })}
           type="text"
           placeholder="Image URL"
         />
-        <textarea
+        <label htmlFor="desc">Description</label>
+        <Textarea
+          id="desc"
           {...register("desc", {
             required: true,
           })}
           placeholder="Description"
         />
         <div className="btnWrapper">
-          <button
+          <Button
             type="button"
             onClick={() => {
               dispatch(toggleShowPopUp());
@@ -79,10 +88,10 @@ export default function BlogPopUp() {
             disabled={isSubmitting}
           >
             Cancel
-          </button>
-          <button type="submit" disabled={isSubmitting}>
+          </Button>
+          <Button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Adding Blog" : "Add Blog"}
-          </button>
+          </Button>
         </div>
       </form>
     </div>

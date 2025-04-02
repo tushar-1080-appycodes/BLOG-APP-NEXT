@@ -8,6 +8,9 @@ import { toggleShowPass } from "@/features/auth/authSlice";
 import { useRouter } from "next/navigation";
 import { toggleLoggedIn } from "@/features/app/appSlice";
 import ShowPassButton from "@/components/AuthForm/ShowPassButton";
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+
 
 export default function LogIn() {
   const {
@@ -21,56 +24,56 @@ export default function LogIn() {
   const router = useRouter();
 
   return (
-    <div>
-      <h1>Log In</h1>
-      <form
-        onSubmit={handleSubmit(async (data) => {
-          try {
-            const userCredential = await signInWithEmailAndPassword(
-              auth,
-              data.email,
-              data.password
-            );
-            console.log("user credentials are valid");
-            dispatch(toggleLoggedIn())
-            router.replace("/");
-          } catch (error) {
-            console.log(error.code);
-            
-            if(error.code === "auth/invalid-credential") {
-              alert("Email or Password is incorrect");
-            }
+    <form
+      className="flex flex-col justify-between items-center w-full gap-1"
+      onSubmit={handleSubmit(async (data) => {
+        try {
+          const userCredential = await signInWithEmailAndPassword(
+            auth,
+            data.email,
+            data.password
+          );
+          console.log("user credentials are valid");
+          dispatch(toggleLoggedIn())
+          router.replace("/");
+        } catch (error) {
+          console.log(error.code);
+
+          if (error.code === "auth/invalid-credential") {
+            alert("Email or Password is incorrect");
           }
+        }
+      })}
+    >
+      {/* Email */}
+      <Input
+        className="text-3xl p-1 w-full outline-0 mt-2"
+        {...register("email", {
+          required: true,
         })}
-      >
-        {/* Email */}
-        <input
-          {...register("email", {
+        type="email"
+        placeholder="Email"
+      />
+
+      {/* Password */}
+      <div className="w-full flex gap-1 items-center mt-1 justify-center">
+        <Input
+          className="text-3xl p-1 w-full outline-0"
+          {...register("password", {
             required: true,
+            minLength: 8,
           })}
-          type="email"
-          placeholder="Email"
+          type={showPass ? "text" : "password"}
+          placeholder="Password"
         />
+        <ShowPassButton />
+      </div>
 
-        {/* Password */}
-        <div className="passWrapper">
-          <input
-            {...register("password", {
-              required: true,
-              minLength: 8,
-            })}
-            type={showPass ? "text" : "password"}
-            placeholder="Password"
-          />
-          <ShowPassButton />
-        </div>
-
-        {/* LogIn Button */}
-        <button type="submit" disabled={isSubmitting}>
-          {/* Log In */}
-          {isSubmitting ? "Logging In" : "Log In"}
-        </button>
-      </form>
-    </div>
+      {/* LogIn Button */}
+      <Button className="w-fit p-2 mt-1.5 font-bold rounded border-none focus:text-white" type="submit" disabled={isSubmitting}>
+        {/* Log In */}
+        {isSubmitting ? "Logging In" : "Log In"}
+      </Button>
+    </form>
   );
 }

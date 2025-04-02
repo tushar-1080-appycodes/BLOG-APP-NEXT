@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import BlogCard from "./BlogCard";
 import { setBlogs } from "@/features/blog/blogSlice";
-import { fetchBlogs, uploadBlogs } from "@/firebase/firestore";
+import { fetchBlogs } from "@/firebase/firestore";
 
 export default function Blogs() {
   const blogCount = useSelector((state) => state.blog.addedBlog);
@@ -32,18 +32,8 @@ export default function Blogs() {
 
   }, [blogCount]);
 
-  // useEffect(() => {
-  //   console.log(blogs);
-  // }, [blogs]);
-  // console.log(blogs);
   return (
     <div className="blogsContainer">
-      <button
-        className="bg-blue-500 text-white px-4 py-2 rounded absolute top-0 right-0"
-        onClick={() => uploadBlogs(blogs)}
-      >
-        Upload Mock Data
-      </button>
       {blogs.map((blog, index) => (
         // console.log("Blog ObjID: ",blog.id),
 
