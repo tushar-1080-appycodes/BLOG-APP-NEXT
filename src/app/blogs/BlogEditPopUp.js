@@ -1,12 +1,12 @@
-import { updateDoc, doc } from "firebase/firestore";
-import { db } from "@/firebase/config";
 import { toggleShowPopUp } from "@/features/blog/blogSlice";
 import "./BlogPopUp.scss";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
+import { updateBlog } from "@/firebase/firestore";
+import { updateBlogs } from "@/features/blog/blogSlice";
 
 export default function BlogEditPopUp(defaultValues) {
-  const { blogID, title, desc, image, publisher } = defaultValues;
+  const { id, title, desc, image, publisher } = defaultValues;
 
   const {
     register,
@@ -27,15 +27,12 @@ export default function BlogEditPopUp(defaultValues) {
     return null;
   }
 
-  async function submitHandler(data) {
-    try {
-      const blogRef = doc(db, "blogs", blogID); // Reference to blog document
-      await updateDoc(blogRef, data); // Update document
+  function submitHandler(data) {
+    updateBlog(id, data).then(() => {
+      dispatch(updateBlogs(id, data))
       alert("✅ Blog updated successfully!");
       window.location.reload();
-    } catch (error) {
-      alert("❌ Error updating blog:", error);
-    }
+    }).error(error => alert("❌ Error updating blog:", error))
   }
 
   return (

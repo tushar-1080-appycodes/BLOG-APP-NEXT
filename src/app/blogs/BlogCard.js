@@ -1,28 +1,25 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
 
-export default function BlogCard({ blogID }) {
+export default function BlogCard({ id,title, desc, image, publisher }) {
   const router = useRouter();
   // console.log("Images: ", image);
-
-  const blogs = useSelector(state => state.blog.blogs)
-  const { title, desc, image, publisher } = blogs.find(blog => blog.id === blogID)
-  // , title, desc, image, publisher
+  // console.log("Blog: ", id);
 
 
   return (
     <div className="blogCard">
       <Image
         // src={image ? image : "/next.svg"}
-        src="/next.svg"
+        src={"/next.svg"}
         width={500}
         height={500}
         alt="zzz"
       ></Image>
       <h3>{title}</h3>
       <span>{publisher}</span>
-      <button onClick={() => router.push(`/blog/${blogID}`)}>
+      <button onClick={() => id? router.push(`/blogs/${id}`):alert("id undefined")}>
         Read More
         <svg
           xmlns="http://www.w3.org/2000/svg"

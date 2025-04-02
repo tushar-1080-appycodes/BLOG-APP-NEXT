@@ -18,11 +18,12 @@ export const blogSlice = createSlice({
       state.showPopUp = !state.showPopUp;
     },
     setBlogs: (state, action) => {
-      return { ...state, blogs: action.payload }
+      // return { ...state, blogs: action.payload }
+      state.blogs = action.payload
     },
     updateBlogs: (state, action) => {
       const updatedBlog = state.blogs.map((blog) => {
-        blog.id === action.payload.id ? { ...blog, ...action.payload } : blog
+        blog.id === action.payload.id ? { ...blog, ...action.payload.data } : blog
       })
       return { ...state, blogs: updatedBlog }
     }

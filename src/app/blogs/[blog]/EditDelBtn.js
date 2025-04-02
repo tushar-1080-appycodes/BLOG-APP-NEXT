@@ -1,7 +1,7 @@
 import { toggleShowPopUp } from "@/features/blog/blogSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { deleteDoc } from "firebase/firestore";
-import { db } from "@/firebase/config";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+import { deleteBlog } from "@/firebase/firestore";
 
 
 export default function EditDelBtn() {
@@ -27,9 +27,11 @@ export default function EditDelBtn() {
         </svg>
       </button>
       <button onClick={() => {
-        deleteDoc(doc(db, "blogs", blogID))
-        alert("Deleted");
-        router.replace("/");
+        deleteBlog(blogID).then(() => {
+          alert("Deleted");
+          router.replace("/");
+        })
+
       }}>
         <svg
           xmlns="http://www.w3.org/2000/svg"

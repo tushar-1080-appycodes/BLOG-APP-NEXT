@@ -2,46 +2,29 @@
 
 import "./BlogPage.scss";
 import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
-import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "next/navigation";
+import { useSelector } from "react-redux";
 import BlogEditPopUp from "../BlogEditPopUp";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/firebase/config";
-import { useEffect, useState } from "react";
 import EditDelBtn from "./EditDelBtn";
 
 export default function BlogPage() {
-  const { blogID } = useParams();
-  // console.log("Blog ID: ", blogID);
-
-
-  // const [ setData] = useState(null);
+  const { blog:id } = useParams();
+  // console.log(id);
 
 
   const mail = useSelector((state) => state.app.mail);
-  const blogs = useSelector(state => state.blog.blogs);
-  const { title, desc, image, publisher } = blogs.find(blog => blog.id === blogID);
-  // alert(mail);
-
-  // async function fetchBlog() {
-  //   const docRef = doc(db, "blogs", blogID);
-  //   const blogDoc = await getDoc(docRef);
-  //   setData(blogDoc.));
-  // }
-
-  // useEffect(() => {
-  //   fetchBlog();
-  // }, []);
-
-  // if (!data) {
-  //   return <div>Loading...</div>;
-  // }
+  const blog = useSelector((state) =>
+    state.blog.blogs.find((blog) => blog.id === id)
+  );
+  // console.log(blog);
+  
+  const { title, desc, image, publisher } = blog
 
   return (
     <div className="blogPage">
 
       <BlogEditPopUp
-        {...blogs}
+        {...blog}
       />
       {mail === publisher && (
         <EditDelBtn />
