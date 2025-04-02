@@ -2,6 +2,7 @@
 
 import Blogs from "./Blogs";
 import BlogPopUp from "./BlogPopUp";
+import "./BlogHomePage.scss"
 
 import { toggleShowPopUp } from "@/features/blog/blogSlice";
 import { useSelector, useDispatch } from "react-redux";

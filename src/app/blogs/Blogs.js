@@ -39,7 +39,7 @@ export default function Blogs() {
   return (
     <div className="blogsContainer">
       <button
-        className="bg-blue-500 text-white px-4 py-2 rounded absolute top-4 right-4"
+        className="bg-blue-500 text-white px-4 py-2 rounded absolute top-0 right-0"
         onClick={() => uploadBlogs(blogs)}
       >
         Upload Mock Data
