@@ -16,9 +16,9 @@ export default function AuthLayout({ children }) {
   const pathname = usePathname();
 
   return (
-    <Card className="p-4 bg-black text-white  flex flex-col justify-center items-start jus gap-4 border-2 rounded-2xl mx-5 mt-[20%] lg:mt-[15%] w-fit">
+    <Card className="p-8 bg-black text-white flex flex-col justify-center items-stretch gap-4 border-2 rounded-2xl mx-5 mx-md-auto mt-[10rem] w-[85%] md:w-1/2 lg:w-1/3">
       <CardHeader>
-        <CardTitle className="text-5xl md:text-7xl text-nowrap p-4">{pathname === "/logIn" ? "Log In" : "Sign Up"}</CardTitle>
+        <CardTitle className="text-5xl md:text-7xl sm:text-nowrap">{pathname === "/logIn" ? "Log In" : "Sign Up"}</CardTitle>
         <CardDescription></CardDescription>
       </CardHeader>
       <CardContent>
