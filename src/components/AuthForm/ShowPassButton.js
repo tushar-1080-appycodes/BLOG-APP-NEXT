@@ -11,11 +11,11 @@ export default function ShowPassButton() {
       {showPass ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          fill="none"
+          fill="black"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-6 h-6"
+          className="w-64 h-64"
         >
           <path
             strokeLinecap="round"
@@ -26,11 +26,11 @@ export default function ShowPassButton() {
       ) : (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          fill="none"
+          fill="black"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-6 h-6"
+          className="w-64 h-64"
         >
           <path
             strokeLinecap="round"

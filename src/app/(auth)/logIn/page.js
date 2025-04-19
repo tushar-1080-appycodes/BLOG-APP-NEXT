@@ -47,7 +47,7 @@ export default function LogIn() {
     >
       {/* Email */}
       <Input
-        className="text-3xl p-1 w-full outline-0 mt-2"
+        className="p-1 w-full outline-0 mt-2"
         {...register("email", {
           required: true,
         })}
@@ -56,9 +56,9 @@ export default function LogIn() {
       />
 
       {/* Password */}
-      <div className="w-full flex gap-1 items-center mt-1 justify-center">
+      <div className="passWrapper">
         <Input
-          className="text-3xl p-1 w-full outline-0"
+          className="p-1 w-full outline-0"
           {...register("password", {
             required: true,
             minLength: 8,
@@ -70,7 +70,7 @@ export default function LogIn() {
       </div>
 
       {/* LogIn Button */}
-      <Button className="w-fit p-2 mt-1.5 font-bold rounded border-none focus:text-white" type="submit" disabled={isSubmitting}>
+      <Button className="" type="submit" disabled={isSubmitting}>
         {/* Log In */}
         {isSubmitting ? "Logging In" : "Log In"}
       </Button>

@@ -29,7 +29,7 @@ export default function SignUp() {
 
   return (
     <form
-    className="flex flex-col justify-between items-center w-full gap-1"
+      className="flex flex-col justify-between items-center w-full gap-1"
       onSubmit={handleSubmit(async (data) => {
         try {
           const userCredential = await createUserWithEmailAndPassword(
@@ -65,7 +65,7 @@ export default function SignUp() {
     >
       {/* First Name */}
       <Input
-        className="text-3xl p-1 w-full outline-0 mt-2"
+        className=""
         {...register("fName", {
           required: true,
           pattern: /^[a-zA-Z]{2,50}$/,
@@ -81,7 +81,7 @@ export default function SignUp() {
 
       {/* Last Name */}
       <Input
-        className="text-3xl p-1 w-full outline-0 mt-2"
+        className=""
         {...register("lName", {
           required: true,
           pattern: /^[a-zA-Z]{2,50}$/,
@@ -97,7 +97,7 @@ export default function SignUp() {
 
       {/* Email */}
       <Input
-        className="text-3xl p-1 w-full outline-0 mt-2"
+        className=""
         {...register("email", {
           required: true,
           pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
@@ -106,15 +106,13 @@ export default function SignUp() {
         placeholder="Email"
       />
       {errors.email && (
-        <span className="text-red-600 font-black">
-          Enter a valid mail id !
-        </span>
+        <span className="text-red-600 font-black">Enter a valid mail id !</span>
       )}
 
       {/* Password */}
-      <div className="w-full flex gap-1 items-center mt-1 justify-center">
+      <div className="passWrapper">
         <Input
-          className="text-3xl p-1 w-full outline-0"
+          className=""
           {...register("password", {
             required: true,
             minLength: 8,
@@ -140,13 +138,12 @@ export default function SignUp() {
       )}
 
       {/* Confirm Password */}
-      <div className="w-full flex gap-1 items-center mt-1 justify-center">
+      <div className="passWrapper">
         <Input
-          className="text-3xl p-1 w-full outline-0"
+          className=""
           {...register("cPassword", {
             required: true,
-            validate: (value) =>
-              value === password || "Passwords do not match",
+            validate: (value) => value === password || "Passwords do not match",
           })}
           type={showPass ? "text" : "password"}
           placeholder="Confirm Password"
@@ -158,7 +155,7 @@ export default function SignUp() {
       )}
 
       {/* SignUp Button */}
-      <Button className="w-fit p-2 mt-1.5 font-bold rounded border-none focus:text-white" type="submit" disabled={isSubmitting}>
+      <Button className="" type="submit" disabled={isSubmitting}>
         {/* Sign Up */}
         {isSubmitting ? "Signing Up" : "Sign Up"}
       </Button>
