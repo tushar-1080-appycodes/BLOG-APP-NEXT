@@ -24,16 +24,16 @@ export default function AuthLayout({ children }) {
       <CardContent>{children}</CardContent>
       <CardFooter>
         {pathname === "/logIn" ? (
-          <p className="mx-auto my-1.5">
+          <p className="">
             don&apos;t have an account?{" "}
-            <Link className="border-b-2 border-b-white" href="/signUp">
+            <Link className="" href="/signUp">
               Sign Up
             </Link>
           </p>
         ) : (
-          <p className="mx-auto my-1.5 text-center">
+          <p className="">
             already have an account?{" "}
-            <Link className="border-b-2 border-b-white" href="/logIn">
+            <Link className="" href="/logIn">
               Log In
             </Link>
           </p>
