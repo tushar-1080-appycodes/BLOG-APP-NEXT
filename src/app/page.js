@@ -13,29 +13,21 @@ export default function Home() {
   const dispatch = useDispatch();
 
   const isLoggedIn = useSelector((state) => state.app.isLoggedIn);
-  // const showPopUp = useSelector((state) => state.blog.showPopUp);
 
-  // const [mail, setMail] = useState("");
+  if (!isLoggedIn) {
+    router.push("/logIn");
+  } else {
+    router.push("/blogs")
+  }
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // setMail(user.email);
-        dispatch(setMail(user.email));
-      }
-      // else {
-      //   router.replace("/logIn");
-      // }
-
-      if (!isLoggedIn) {
-        router.push("/logIn");
-      }else{
-        router.push("/blogs")
-      }
-
-      return () => unsubscribe();
-    });
-  }, []);
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       dispatch(setMail(user.email));
+  //     }
+  //     return () => unsubscribe();
+  //   });
+  // }, []);
 
   return (
     <p>Loading</p>

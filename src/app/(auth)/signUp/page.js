@@ -40,20 +40,22 @@ export default function SignUp() {
 
           const user = userCredential.user;
 
+          user && console.log(userCredential)
+
           try {
-            await setDoc(doc(db, "users", user.uid), {
+            await setDoc(doc(db, "users", user?.uid), {
               firstname: data.fName,
               lastname: data.lName,
               email: data.email,
             });
             alert(
-              "User created successfully with uid: " + userCredential.user.uid
+              "User added successfully with uid: " + userCredential.user.uid
             );
             router.push("/logIn");
           } catch (error) {
             console.log(error.code);
             await deleteUser(user);
-            alert("FireStore Error: User creation failed !");
+            console.log("FireStore Error: User addition failed !");
           }
         } catch (error) {
           console.error(error.code);
