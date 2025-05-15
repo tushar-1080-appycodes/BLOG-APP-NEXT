@@ -33,9 +33,15 @@ export default function LogIn() {
             data.email,
             data.password
           );
+
           console.log("user credentials are valid");
+
           dispatch(toggleLoggedIn())
-          router.replace("/");
+          // dispatch(setMail(user.email));
+
+          sessionStorage.setItem("user_Email",userCredential.user.email)
+
+          router.replace("/blogs");
         } catch (error) {
           console.log(error.code);
 

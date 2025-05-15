@@ -4,8 +4,6 @@ import Image from "next/image";
 
 export default function BlogCard({ id, title, desc, image, publisher }) {
   const router = useRouter();
-  // console.log("Images: ", image);
-  // console.log("Blog: ", id);
 
 
   return (
@@ -16,9 +14,14 @@ export default function BlogCard({ id, title, desc, image, publisher }) {
         width={500}
         height={500}
         alt="zzz"
-      ></Image>
+      />
       <h3>{title}</h3>
-      <p>{publisher}</p>
+      <p>{desc}</p>
+      <span>
+        <button>
+          {publisher}
+        </button>
+        
         <button onClick={() => id ? router.push(`/blogs/${id}`) : alert("id undefined")}>
           Read More
           <svg
@@ -34,6 +37,8 @@ export default function BlogCard({ id, title, desc, image, publisher }) {
             />
           </svg>
         </button>
+      </span>
+        
     </div>
   );
 }
