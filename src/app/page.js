@@ -12,13 +12,13 @@ export default function Home() {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const isLoggedIn = useSelector((state) => state.app.isLoggedIn);
+  // const isLoggedIn = useSelector((state) => state.app.isLoggedIn);
 
-  if (!isLoggedIn) {
-    router.push("/logIn");
-  } else {
-    router.push("/blogs")
-  }
+  // if (!isLoggedIn) {
+  //   router.push("/logIn");
+  // } else {
+  //   router.push("/blogs")
+  // }
 
   // useEffect(() => {
   //   onAuthStateChanged(auth, (user) => {

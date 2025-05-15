@@ -10,9 +10,11 @@ import { toggleLoggedIn } from "@/features/app/appSlice";
 import ShowPassButton from "@/components/AuthForm/ShowPassButton";
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-
+import { getCookies } from "@/utils/getCookies";
 
 export default function LogIn() {
+  const cookies = getCookies()
+
   const {
     register,
     handleSubmit,
@@ -37,11 +39,10 @@ export default function LogIn() {
           console.log("user credentials are valid");
 
           dispatch(toggleLoggedIn())
-          // dispatch(setMail(user.email));
+          sessionStorage.setItem("user_Email", userCredential.user.email)
+          cookies.set('user_Email', userCredential.user.email)
 
-          sessionStorage.setItem("user_Email",userCredential.user.email)
-
-          router.replace("/blogs");
+          router.push("/blogs");
         } catch (error) {
           console.log(error.code);
 
