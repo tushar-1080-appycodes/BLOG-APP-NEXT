@@ -2,7 +2,6 @@
 
 import Blogs from "./Blogs";
 import BlogPopUp from "./BlogPopUp";
-import "./BlogHomePage.scss"
 import { useEffect } from "react";
 import { toggleShowPopUp } from "@/features/blog/blogSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -17,7 +16,6 @@ export default function BlogHomePage() {
 
     async function getMail(key) {
         const email = await getCookies(key)
-        // console.table(email);
         dispatch(setMail(email))
     }
 
