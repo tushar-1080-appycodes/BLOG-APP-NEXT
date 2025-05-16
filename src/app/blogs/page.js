@@ -8,24 +8,22 @@ import { toggleShowPopUp } from "@/features/blog/blogSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@/components/ui/button";
 import { uploadBlogs } from "@/firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/firebase/config";
 import { setMail } from "@/features/app/appSlice";
+import { getCookies } from "../cookieActions";
 
 
 export default function BlogHomePage() {
     const dispatch = useDispatch()
 
+    async function getMail(key) {
+        const email = await getCookies(key)
+        // console.table(email);
+        dispatch(setMail(email))
+    }
+
+
     useEffect(() => {
-        // onAuthStateChanged(auth, (user) => {
-        //     if (user) {
-        //         dispatch(setMail(user.email));
-        //     }
-
-        //     return () => unsubscribe();
-        // });
-
-        dispatch(setMail(sessionStorage.getItem("user_Email")))
+        getMail('user_Email')
     }, []);
 
     const mail = useSelector((state) => state.app.mail);
