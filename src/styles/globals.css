@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@import './authLayout.scss';
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -130,3 +128,6 @@
     @apply bg-black/80 text-foreground flex justify-center;
   }
 }
+
+@import './authLayout.scss';
+@import "./BlogHomePage.scss";

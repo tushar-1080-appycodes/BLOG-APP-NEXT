@@ -73,7 +73,7 @@ export default function SignUp() {
           pattern: /^[a-zA-Z]{2,50}$/,
         })}
         type="text"
-        placeholder="FirstName"
+        placeholder="First Name"
       />
       {errors.fName && (
         <span className="text-red-600 font-black">
@@ -89,7 +89,7 @@ export default function SignUp() {
           pattern: /^[a-zA-Z]{2,50}$/,
         })}
         type="text"
-        placeholder="LastName"
+        placeholder="Last Name"
       />
       {errors.lName && (
         <span className="text-red-600 font-black">
