@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { toggleShowPass } from "../auth/authSlice";
 
 const initialState = {
   addedBlog: 0,

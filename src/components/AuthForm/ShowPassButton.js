@@ -1,13 +1,9 @@
-import { toggleShowPass } from "@/features/auth/authSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../ui/button";
 
-export default function ShowPassButton() {
-  const dispatch = useDispatch();
-  const showPass = useSelector((state) => state.auth.showPass);
+export default function ShowPassButton({ showPass, setShowPass }) {
 
   return (
-    <Button type="button" className="showPassBtn" onClick={() => dispatch(toggleShowPass())}>
+    <Button type="button" className="showPassBtn" onClick={() => setShowPass(!showPass)}>
       {showPass ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"

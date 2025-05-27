@@ -3,14 +3,12 @@
 import { useForm } from "react-hook-form";
 import { auth, db } from "@/firebase/config";
 import { createUserWithEmailAndPassword, deleteUser } from "firebase/auth";
-import { useSelector, useDispatch } from "react-redux";
-import { toggleShowPass } from "@/features/auth/authSlice";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import ShowPassButton from "@/components/AuthForm/ShowPassButton";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 export default function SignUp() {
   const {
@@ -21,9 +19,7 @@ export default function SignUp() {
   } = useForm();
 
   const password = watch("password");
-
-  const dispatch = useDispatch();
-  const showPass = useSelector((state) => state.auth.showPass);
+  const [showPass, setShowPass] = useState(false);
 
   const router = useRouter();
 
@@ -124,7 +120,7 @@ export default function SignUp() {
           type={showPass ? "text" : "password"}
           placeholder="Password"
         />
-        <ShowPassButton />
+        <ShowPassButton showPass={showPass} setShowPass={setShowPass} />
       </div>
       {errors.password && (
         <div className="text-xs">
@@ -150,7 +146,7 @@ export default function SignUp() {
           type={showPass ? "text" : "password"}
           placeholder="Confirm Password"
         />
-        <ShowPassButton />
+        <ShowPassButton showPass={showPass} setShowPass={setShowPass} />
       </div>
       {errors.cPassword && (
         <p className="text-red-500 font-black">{errors.cPassword.message}</p>

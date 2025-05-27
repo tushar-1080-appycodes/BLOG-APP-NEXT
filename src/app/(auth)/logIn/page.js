@@ -3,14 +3,12 @@
 import { useForm } from "react-hook-form";
 import { auth } from "@/firebase/config";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useSelector, useDispatch } from "react-redux";
-import { toggleShowPass } from "@/features/auth/authSlice";
 import { useRouter } from "next/navigation";
-import { toggleLoggedIn } from "@/features/app/appSlice";
 import ShowPassButton from "@/components/AuthForm/ShowPassButton";
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { setCookies } from "@/app/cookieActions";
+import { useState } from "react";
 
 export default function LogIn() {
   const {
@@ -19,8 +17,7 @@ export default function LogIn() {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const dispatch = useDispatch();
-  const showPass = useSelector((state) => state.auth.showPass);
+  const [showPass, setShowPass] = useState(false);
   const router = useRouter();
 
   return (
@@ -71,7 +68,7 @@ export default function LogIn() {
           type={showPass ? "text" : "password"}
           placeholder="Password"
         />
-        <ShowPassButton />
+        <ShowPassButton showPass={showPass} setShowPass={setShowPass} />
       </div>
 
       {/* LogIn Button */}

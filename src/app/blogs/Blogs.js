@@ -40,11 +40,6 @@ export default function Blogs() {
         <BlogCard
           key={index}
           {...blog}
-        // blogID={blog.id}
-        // title={blog.title}
-        // desc={blog.desc}
-        // image={blog.image}
-        // publisher={blog.publisher}
         />
       ))}
     </div>

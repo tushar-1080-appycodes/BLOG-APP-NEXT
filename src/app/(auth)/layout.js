@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { useSelectedLayoutSegment } from "next/navigation";
 import Link from "next/link";
 import {
   Card,
@@ -12,8 +12,9 @@ import {
 } from "@/components/ui/card";
 
 export default function AuthLayout({ children }) {
-  const pathname = usePathname();
-  const [title,className] = pathname === "/logIn" ? ["Log In","login"] : ["Sign Up","signup"];
+  const segment = useSelectedLayoutSegment();
+  
+  const [title, className] = segment === "logIn" ? ["Log In", "login"] : ["Sign Up", "signup"];
 
   return (
     <Card className={`authLayout ${className}`}>
@@ -23,7 +24,7 @@ export default function AuthLayout({ children }) {
       </CardHeader>
       <CardContent>{children}</CardContent>
       <CardFooter>
-        {pathname === "/logIn" ? (
+        {segment === "logIn" ? (
           <p className="">
             don&apos;t have an account?{" "}
             <Link className="" href="/signUp">
